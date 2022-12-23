@@ -84,7 +84,7 @@ GROUP BY DATEPART(yyyy, GlobalTemperatures.dt), GlobalLandTemperaturesByCountry.
 ORDER BY GlobalLandTemperaturesByCountry.Country, DATEPART(yyyy, GlobalTemperatures.dt) DESC
 ```
 
-Finally, I wanted to see how City trends would compare to Country trends to see if there was a difference in Cities. My hypothesis was that the Cities would see a more significant temperature increase than the entire Countries' temperature increase. For this, I also used an OUTER JOIN. 
+Additionally, I wanted to see how City trends would compare to Country trends to see if there was a difference in Cities. My hypothesis was that the Cities would see a more significant temperature increase than the entire Countries' temperature increase. For this, I also used an OUTER JOIN. 
 
 ```sql
 SELECT 
@@ -105,10 +105,26 @@ GROUP BY
 	GlobalLandTemperaturesByMajorCity.Country
 ORDER BY GlobalLandTemperaturesByMajorCity.City, DATEPART(yyyy, GlobalLandTemperaturesByMajorCity.dt) DESC
 ```
+Finally, I wanted to see how temperatures from the major countries I selected had changed from 1900 to 2013
+
+```sql
+SELECT 
+	DATEPART(yyyy, dt) AS Years, 
+	Country, 
+	AVG(CONVERT(FLOAT, AverageTemperature)) AS AvgTemp,
+	AVG(CONVERT(FLOAT, AverageTemperature)) -LAG(AVG(CONVERT(FLOAT, AverageTemperature)), 1) OVER(PARTITION BY Country ORDER BY DATEPART(yyyy, dt)) AS TempChange
+FROM GlobalLandTemperaturesByCountry 
+WHERE Country IN ('United States', 'United Kingdom', 'China', 'Russia', 'India', 'Brazil', 'Australia')
+AND DATEPART(yyyy, dt) IN ('2013', '1900') 
+GROUP BY DATEPART(yyyy, dt), Country
+ORDER BY Country, DATEPART(yyyy, dt) DESC
+```
+
+This output contained the values that were needed but also included a "NULL" value for each Country's "1900" field. These NULL values were removed in Excel prior to importing to Tableau.
 
 ## Visualization
 
-To highlight the trends I found, I used Tableau to create a dashboard in order to showcase these trends and relationships. These results can be found [here](link)
+To highlight the trends I found, I used Tableau to create a dashboard in order to showcase these trends and relationships. These results can be found [here](https://public.tableau.com/app/profile/mathyas.papp/viz/GlobalTemperatures_16718274802340/Dashboard1)
 
 ## Conclusion
-
+My findings revealed that there was a clear increase in Global Temperatures. When looking at the average of the 7 Countries and 7 cities I selected, there was also a clear increase, though more gradual. It was interesting to see, however, that some countries have seen a significant drop in temperature from 1900 to 2013 (UK, India, Australia, Brazil). The cause of this decrease could simply be a fluctuation in temperature for the year of 2013. More time will need to pass to see if this decrease is a trend or an outlier. 
