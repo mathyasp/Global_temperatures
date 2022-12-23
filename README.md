@@ -126,5 +126,10 @@ This output contained the values that were needed but also included a "NULL" val
 
 To highlight the trends I found, I used Tableau to create a dashboard in order to showcase these trends and relationships. These results can be found [here](https://public.tableau.com/app/profile/mathyas.papp/viz/GlobalTemperatures_16718274802340/Dashboard1)
 
+
+![Dashboard 1](https://user-images.githubusercontent.com/119142489/209411565-0fc237a2-2b59-4db8-8793-0264ba048ab5.png)
+
+
+
 ## Conclusion
 My findings revealed that there was a clear increase in Global Temperatures. When looking at the average of the 7 Countries and 7 cities I selected, there was also a clear increase, though more gradual. It was interesting to see, however, that some countries have seen a significant drop in temperature from 1900 to 2013 (UK, India, Australia, Brazil). The cause of this decrease could simply be a fluctuation in temperature for the year of 2013. More time will need to pass to see if this decrease is a trend or an outlier. 
