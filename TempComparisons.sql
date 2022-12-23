@@ -69,3 +69,16 @@ GROUP BY
 	GlobalLandTemperaturesByMajorCity.City,
 	GlobalLandTemperaturesByMajorCity.Country
 ORDER BY GlobalLandTemperaturesByMajorCity.City, DATEPART(yyyy, GlobalLandTemperaturesByMajorCity.dt) DESC
+
+-- Find Change in Temperature for Major Countries from 1900 to 2013
+SELECT 
+	DATEPART(yyyy, dt) AS Years, 
+	Country, 
+	AVG(CONVERT(FLOAT, AverageTemperature)) AS AvgTemp,
+	AVG(CONVERT(FLOAT, AverageTemperature)) -LAG(AVG(CONVERT(FLOAT, AverageTemperature)), 1) OVER(PARTITION BY Country ORDER BY DATEPART(yyyy, dt)) AS TempChange
+FROM GlobalLandTemperaturesByCountry 
+WHERE Country IN ('United States', 'United Kingdom', 'China', 'Russia', 'India', 'Brazil', 'Australia')
+AND DATEPART(yyyy, dt) IN ('2013', '1900') 
+GROUP BY DATEPART(yyyy, dt), Country
+ORDER BY Country, DATEPART(yyyy, dt) DESC
+
