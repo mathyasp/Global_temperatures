@@ -1,6 +1,7 @@
 # Global_temperatures
 ## SQL Analysis of Global Temperature Data
-
+#### Video Demo: https://youtu.be/I2Z4KM3PBOQ
+#### Description:
 For this study, I wanted to take a look at Global Temperature trends to see how major countries and major cities would compare to each other. I was particularly looking to find any possible trends since 1900 and to see if there were any regional differences. 
 
 For this study I used initial data found from Berkley Earth via [kaggle](https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data) under this [licence](https://creativecommons.org/licenses/by-nc-sa/4.0/). The original data set can also be found [here](https://berkeleyearth.org/data/).
